@@ -15,6 +15,12 @@ class MessageInput extends Component {
       this.props.sendMessage(this.props.messageText);
       this.props.setMessageText('');
     };
+
+    this.checkForEnter = (ev) => {
+      if (ev.key === 'Enter' && !ev.getModifierState('Shift')) {
+        this.sendMessage(ev)
+      }
+    }
   }
 
   render() {
@@ -23,6 +29,7 @@ class MessageInput extends Component {
         <textarea
           className="message-field"
           value={ this.props.messageText }
+          onKeyPress={ this.checkForEnter }
           onChange={ (ev) => this.props.setMessageText(ev.currentTarget.value) }
         />
         <button className="submit-button" type="submit">
