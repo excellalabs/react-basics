@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import setMessageText from '../../redux/actions/setMessageText'
 
 import './MessageInput.css';
 
 class MessageInput extends Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      messageText: ''
-    };
-    this.setMessage = (messageText) => this.setState({ messageText });
+
     this.sendMessage = (ev) => {
       ev.preventDefault()
       this.props.onSubmit(this.state.messageText);
@@ -21,8 +21,8 @@ class MessageInput extends Component {
       <form className="message-input" onSubmit={ this.sendMessage }>
         <textarea
           className="message-field"
-          value={ this.state.messageText }
-          onChange={ (ev) => this.setMessage(ev.currentTarget.value) }
+          value={ this.props.messageText }
+          onChange={ (ev) => this.props.setMessageText(ev.currentTarget.value) }
         />
         <button className="submit-button" type="submit">
           Send
@@ -32,4 +32,12 @@ class MessageInput extends Component {
   }
 }
 
-export default MessageInput;
+const mapState = (state) => ({
+  messageText: state.message.text
+});
+
+const mapDispatch = (dispatch) => ({
+  setMessageText: (messageText) => dispatch(setMessageText(messageText))
+});
+
+export default connect(mapState, mapDispatch)(MessageInput);
