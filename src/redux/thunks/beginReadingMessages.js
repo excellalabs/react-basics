@@ -5,10 +5,16 @@ import addMessageToQueue from '../actions/addMessageToQueue'
 
 let reading = false;
 
+const limitedMessages = messages.limitToLast(30);
+
 export default () => {
   return (dispatch) => {
     const readFromRemote = () => {
-      messages.once('value', (messageQueue) => {
+      limitedMessages.once('value', (snapshot) => {
+        const messageQueue = [];
+        snapshot.forEach(msgSnap => {
+          messageQueue.push(msgSnap.val());
+        });
         dispatch(setMessageQueue(messageQueue));
       })
     };
@@ -19,11 +25,12 @@ export default () => {
       return;
     }
 
-    messages.on('child_added', (message) => {
+    limitedMessages.on('child_added', (snapshot) => {
+      const message = snapshot.val();
       dispatch(addMessageToQueue(message));
     });
 
-    mesages.on('child_removed', readFromRemote);
+    messages.on('child_removed', readFromRemote);
 
     reading = true;
   }
