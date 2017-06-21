@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import setMessageText from '../../redux/actions/setMessageText'
+import addMessageToQueue from '../../redux/actions/addMessageToQueue'
 
 import './MessageInput.css';
 
@@ -11,8 +12,8 @@ class MessageInput extends Component {
 
     this.sendMessage = (ev) => {
       ev.preventDefault()
-      this.props.onSubmit(this.state.messageText);
-      this.setMessage('');
+      this.props.sendMessage(this.props.messageText);
+      this.props.setMessageText('');
     };
   }
 
@@ -37,7 +38,8 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  setMessageText: (messageText) => dispatch(setMessageText(messageText))
+  setMessageText: (messageText) => dispatch(setMessageText(messageText)),
+  sendMessage: (messageText) => dispatch(addMessageToQueue(messageText))
 });
 
 export default connect(mapState, mapDispatch)(MessageInput);
