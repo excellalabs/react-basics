@@ -5,10 +5,13 @@ import './MessageList.css';
 
 const MessageList = (props) => {
   const messages = props.messages || [];
+  const messagesWithBreaks = messages.map(message => {
+    return message.split('\n').map((line, index) => <p key={index}>{line}</p>)
+  })
   return (
     <div className="message-list">
       {
-        messages.map((message, index) => (
+        messagesWithBreaks.map((message, index) => (
           <div key={index} className="message-item">
             { message }
           </div>

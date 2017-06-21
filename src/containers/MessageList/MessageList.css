@@ -9,3 +9,8 @@
   background: #808;
   border-radius: 10px;
 }
+
+.message-list .message-item p {
+  margin: 0;
+  padding: 0;
+}
