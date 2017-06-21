@@ -1,0 +1,11 @@
+.message-list {
+  margin: 10px;
+}
+
+.message-list .message-item {
+  margin-top: 10px;
+  padding: 10px;
+  color: white;
+  background: #808;
+  border-radius: 10px;
+}
