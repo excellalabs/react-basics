@@ -1,29 +1,19 @@
 
-import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
-
-import { persistStore, autoRehydrate } from 'redux-persist';
-import thunk from 'redux-thunk';
-
-import DevTools from '../containers/DevTools';
-
+import { combineReducers } from 'redux';
 import message from './reducers/message';
 import messageQueue from './reducers/messageQueue';
+
+const prod = process.env.NODE_ENV === 'production';
+
+const createStore = prod
+  ? require('./createStore.prod').default
+  : require('./createStore.dev').default;
 
 const rootReducer = combineReducers({
   message,
   messageQueue
 });
 
-const store = createStore(
-  rootReducer,
-  undefined,
-  compose(
-    applyMiddleware(thunk),
-    autoRehydrate(),
-    DevTools.instrument()
-  )
-);
-
-persistStore(store);
+const store = createStore(rootReducer);
 
 export default store;
