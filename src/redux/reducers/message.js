@@ -9,6 +9,7 @@ export default (previousState = INITIAL_STATE, action) => {
   switch(action.type) {
     case setMessageTextType:
       return {
+        ...previousState,
         text: action.messageText
       };
 
