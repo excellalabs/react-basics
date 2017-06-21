@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import setMessageText from '../../redux/actions/setMessageText'
-import addMessageToQueue from '../../redux/actions/addMessageToQueue'
+import pushMessage from '../../redux/thunks/pushMessage'
 
 import './MessageInput.css';
 
@@ -46,7 +46,7 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => ({
   setMessageText: (messageText) => dispatch(setMessageText(messageText)),
-  sendMessage: (messageText) => dispatch(addMessageToQueue(messageText))
+  sendMessage: (messageText) => dispatch(pushMessage(messageText))
 });
 
 export default connect(mapState, mapDispatch)(MessageInput);

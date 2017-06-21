@@ -1,8 +1,7 @@
 
 export const type = 'add_message_to_queue';
 
-export default (messageText) => ({
+export default (message) => ({
   type,
-  time: Date.now(),
-  messageText
+  message
 });

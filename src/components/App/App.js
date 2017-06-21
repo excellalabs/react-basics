@@ -5,12 +5,16 @@ import DevTools from '../../containers/DevTools';
 import MessageList from '../../containers/MessageList';
 import MessageInput from '../../containers/MessageInput';
 import store from '../../redux'
+import beginReadingMessages from '../../redux/thunks/beginReadingMessages'
 
 import './App.css';
 
 class App extends Component {
-  render() {
+  componentDidMount() {
+    store.dispatch(beginReadingMessages());
+  }
 
+  render() {
     return (
       <Provider store={store}>
         <div className="App">
