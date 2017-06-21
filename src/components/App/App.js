@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 
+import DevTools from '../../containers/DevTools';
 import MessageList from '../../containers/MessageList';
 import MessageInput from '../../containers/MessageInput';
 import store from '../../redux'
@@ -13,8 +14,9 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div className="App">
-            <MessageList />
-            <MessageInput onSubmit={console.log} />
+          <DevTools />
+          <MessageList />
+          <MessageInput onSubmit={console.log} />
         </div>
       </Provider>
     );

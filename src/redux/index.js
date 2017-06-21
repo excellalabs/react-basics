@@ -1,5 +1,9 @@
 
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore, compose } from 'redux';
+
+import { persistStore, autoRehydrate } from 'redux-persist';
+
+import DevTools from '../containers/DevTools';
 
 import message from './reducers/message';
 import messageQueue from './reducers/messageQueue';
@@ -9,6 +13,15 @@ const rootReducer = combineReducers({
   messageQueue
 });
 
-const store = createStore(rootReducer);
+const store = createStore(
+  rootReducer,
+  undefined,
+  compose(
+    DevTools.instrument(),
+    autoRehydrate()
+  )
+);
+
+persistStore(store);
 
 export default store;
