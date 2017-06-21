@@ -17,8 +17,8 @@ const store = createStore(
   rootReducer,
   undefined,
   compose(
-    DevTools.instrument(),
-    autoRehydrate()
+    autoRehydrate(),
+    DevTools.instrument()
   )
 );
 
