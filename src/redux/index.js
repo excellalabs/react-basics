@@ -1,7 +1,8 @@
 
-import { combineReducers, createStore, compose } from 'redux';
+import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
 
 import { persistStore, autoRehydrate } from 'redux-persist';
+import thunk from 'redux-thunk';
 
 import DevTools from '../containers/DevTools';
 
@@ -17,6 +18,7 @@ const store = createStore(
   rootReducer,
   undefined,
   compose(
+    applyMiddleware(thunk),
     autoRehydrate(),
     DevTools.instrument()
   )
